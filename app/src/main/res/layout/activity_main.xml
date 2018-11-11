@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Financial Planner"
+        android:text="Current Plans:"
         android:textColor="#000"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"

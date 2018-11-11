@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -74,7 +75,24 @@ public class MainActivity extends AppCompatActivity {
             p.setClickListener(new PlannerAdapter.ItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    Toast.makeText(MainActivity.this, "I clicked at position: " + position, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "I clicked at position: " + position, Toast.LENGTH_SHORT).show();
+
+                    String nameClicked;
+                    String temp = storage.getString("plannermodel", "");
+                    Gson gson = new Gson();
+                    PlannerObjectModel parent = gson.fromJson(temp, PlannerObjectModel.class);
+
+                    List<PlannerObject> planList = HOLDER.getPlannerObjectList();
+                    PlannerObject obj = planList.get(position);
+
+                    String json = gson.toJson(obj);
+
+                    editor.putString("nameClicked", json);
+                    editor.commit();
+
+                    Intent openPlannerDetails = new Intent(MainActivity.this, ViewPlanner.class);
+                    startActivity(openPlannerDetails);
+
                 }
             });
         }
